@@ -2,17 +2,19 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from time import sleep
+from MySocket import *
 
 
 class Window(QWidget):
-    def __init__(self):
-        super().__init__()#调用父构造函数初始化
+    def __init__(self, socket):
+        super(Window, self).__init__(None)#调用父构造函数初始化
+        print('start!')
+        self.socket = socket
         self.setWindow()#设置窗口
         self.setButton()  # 设置按钮
         self.timer = QTimer()
         self.timer.setInterval(1000)
-        self.timer.timeout.connect(self.move)
+        self.timer.timeout.connect(self.Redraw)
         self.timer.start()
         self.show()
 
@@ -30,13 +32,11 @@ class Window(QWidget):
         buttonRestart.move(150, 450)
         buttonRestart.setToolTip('Click here to restart')
 
-    def move(self):
-        while True:
-            print('.')
-            sleep(1)
-
+    def Redraw(self):
+        print('.')
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = Window()
+    socket = MySocket('127.0.0.1', 'tu_4s2q3o3p4928')
+    window = Window(socket)
     sys.exit(app.exec_())
