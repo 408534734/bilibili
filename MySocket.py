@@ -17,7 +17,7 @@ class MySocket:
             username = self.username + '\n'
             connector.send(username.encode('utf8'))
             data = connector.recv(self.bufferSize)
-            data = data.decode('gb2312')
+            data = data.decode('utf-8')
             #self.connector.close()
             return data
         except TimeoutError:
